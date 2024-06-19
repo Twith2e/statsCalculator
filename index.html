@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p id="sortedarray"></p>
+    <p id="minandmax"></p>
+    <p id="median"></p>
+    <p id="average"></p>
+    <p id="range"></p>
+    <p id="compare"></p>
+    <button onclick="showStatsAnswer()">Statistics Button</button>
+    <button onclick="showCountryAnswer()">Countries Button</button>
+    <p id="first-ten-countries"></p>
+    <p id="middle-country"></p>
+    <p id="country-split"></p>
+  </body>
+  <script>
+    const ages = [19, 22, 19, 24, 20, 25, 26, 24, 25, 24];
+    const sortedArray = document.getElementById("sortedarray");
+    const minAndMax = document.getElementById("minandmax");
+    const myMedian = document.getElementById("median");
+    const myAverage = document.getElementById("average");
+    const myRange = document.getElementById("range");
+    const myComparison = document.getElementById("compare");
+    const countries = [
+      "Afghanistan",
+      "Albania",
+      "Algeria",
+      "Andorra",
+      "Angola",
+      "Antigua and Barbuda",
+      "Argentina",
+      "Armenia",
+      "Australia",
+      "Austria",
+      "Azerbaijan",
+      "Bahamas",
+      "Bahrain",
+      "Bangladesh",
+      "Barbados",
+      "Belarus",
+      "Belgium",
+      "Belize",
+      "Benin",
+      "Bhutan",
+      "Bolivia",
+      "Bosnia and Herzegovina",
+      "Botswana",
+      "Brazil",
+      "Brunei",
+      "Bulgaria",
+      "Burkina Faso",
+      "Burundi",
+      "Cambodia",
+      "Cameroon",
+      "Canada",
+      "Cape Verde",
+      "Central African Republic",
+      "Chad",
+      "Chile",
+      "China",
+      "Colombi",
+      "Comoros",
+      "Congo (Brazzaville)",
+      "Congo",
+      "Costa Rica",
+      "Cote d'Ivoire",
+      "Croatia",
+      "Cuba",
+      "Cyprus",
+      "Czech Republic",
+      "Denmark",
+      "Djibouti",
+      "Dominica",
+      "Dominican Republic",
+      "East Timor (Timor Timur)",
+      "Ecuador",
+      "Egypt",
+      "El Salvador",
+      "Equatorial Guinea",
+      "Eritrea",
+      "Estonia",
+      "Ethiopia",
+      "Fiji",
+      "Finland",
+      "France",
+      "Gabon",
+      "Gambia, The",
+      "Georgia",
+      "Germany",
+      "Ghana",
+      "Greece",
+      "Grenada",
+      "Guatemala",
+      "Guinea",
+      "Guinea-Bissau",
+      "Guyana",
+      "Haiti",
+      "Honduras",
+      "Hungary",
+      "Iceland",
+      "India",
+      "Indonesia",
+      "Iran",
+      "Iraq",
+      "Ireland",
+      "Israel",
+      "Italy",
+      "Jamaica",
+      "Japan",
+      "Jordan",
+      "Kazakhstan",
+      "Kenya",
+      "Kiribati",
+      "Korea, North",
+      "Korea, South",
+      "Kuwait",
+      "Kyrgyzstan",
+      "Laos",
+      "Latvia",
+      "Lebanon",
+      "Lesotho",
+      "Liberia",
+      "Libya",
+      "Liechtenstein",
+      "Lithuania",
+      "Luxembourg",
+      "Macedonia",
+      "Madagascar",
+      "Malawi",
+      "Malaysia",
+      "Maldives",
+      "Mali",
+      "Malta",
+      "Marshall Islands",
+      "Mauritania",
+      "Mauritius",
+      "Mexico",
+      "Micronesia",
+      "Moldova",
+      "Monaco",
+      "Mongolia",
+      "Morocco",
+      "Mozambique",
+      "Myanmar",
+      "Namibia",
+      "Nauru",
+      "Nepal",
+      "Netherlands",
+      "New Zealand",
+      "Nicaragua",
+      "Niger",
+      "Nigeria",
+      "Norway",
+      "Oman",
+      "Pakistan",
+      "Palau",
+      "Panama",
+      "Papua New Guinea",
+      "Paraguay",
+      "Peru",
+      "Philippines",
+      "Poland",
+      "Portugal",
+      "Qatar",
+      "Romania",
+      "Russia",
+      "Rwanda",
+      "Saint Kitts and Nevis",
+      "Saint Lucia",
+      "Saint Vincent",
+      "Samoa",
+      "San Marino",
+      "Sao Tome and Principe",
+      "Saudi Arabia",
+      "Senegal",
+      "Serbia and Montenegro",
+      "Seychelles",
+      "Sierra Leone",
+      "Singapore",
+      "Slovakia",
+      "Slovenia",
+      "Solomon Islands",
+      "Somalia",
+      "South Africa",
+      "Spain",
+      "Sri Lanka",
+      "Sudan",
+      "Suriname",
+      "Swaziland",
+      "Sweden",
+      "Switzerland",
+      "Syria",
+      "Taiwan",
+      "Tajikistan",
+      "Tanzania",
+      "Thailand",
+      "Togo",
+      "Tonga",
+      "Trinidad and Tobago",
+      "Tunisia",
+      "Turkey",
+      "Turkmenistan",
+      "Tuvalu",
+      "Uganda",
+      "Ukraine",
+      "United Arab Emirates",
+      "United Kingdom",
+      "United States",
+      "Uruguay",
+      "Uzbekistan",
+      "Vanuatu",
+      "Vatican City",
+      "Venezuela",
+      "Vietnam",
+      "Yemen",
+      "Zambia",
+      "Zimbabwe",
+    ];
+    const firstTenCountries = document.getElementById("first-ten-countries");
+    const middleCountry = document.getElementById("middle-country");
+    const countrySlice = document.getElementById("country-split");
+
+    console.log(countries.length);
+
+    function showStatsAnswer() {
+      mySort = ages.sort();
+      sortedArray.innerText = `The sorted array is (${mySort.join(", ")})`;
+      thatAverage = calculateAverage(mySort);
+      myMin = mySort[0];
+      myMax = mySort[mySort.length - 1];
+      minAndMax.innerText = `The minimum and maximum value in the sorted array is ${myMin} and ${myMax} respectively`;
+      if (Array.isArray(calculateMedian(mySort))) {
+        thatMedian = calculateMedian(mySort);
+        myMedian.innerText = `The median is ${
+          (thatMedian[0] + thatMedian[1]) / 2
+        }`;
+      } else {
+        myMedian.innerText = `The median is ${calculateMedian(mySort)}`;
+      }
+      myAverage.innerText = `The average of the sorted array is ${calculateAverage(
+        mySort
+      )}`;
+
+      myRange.innerText = `The range is ${myMax - myMin}`;
+      myComparison.innerText = `The max and min is ${Math.round(
+        Math.abs(myMax - thatAverage)
+      )} and ${Math.round(Math.abs(myMin - thatAverage))}`;
+    }
+
+    function showCountryAnswer() {
+      firstTenCountries.innerText = `The first ten countries from the countries array are: ${countries
+        .slice(0, 10)
+        .join(", ")}`;
+      if (Array.isArray(calculateMedian(countries))) {
+        thatMedian = calculateMedian(countries);
+        middleCountry.innerText = `The median is ${thatMedian[0]}, ${thatMedian[1]}`;
+      } else {
+        middleCountry.innerText = `The median is ${calculateMedian(countries)}`;
+      }
+      if (countries.length % 2 != 0) {
+        firstHalf = Math.ceil(countries.length / 2);
+        firstHalfArray = countries.slice(0, firstHalf);
+        secondHalfArray = countries.slice(firstHalf);
+        countrySlice.innerText = `After array slicing, the first and second parts of the array are : [${firstHalfArray}] and [${secondHalfArray}]`;
+      } else {
+        firstHalf = countries.length / 2;
+        console.log(
+          `${countries.slice(0, firstHalf)} and ${countries.slice(firstHalf)}`
+        );
+      }
+    }
+
+    function calculateMedian(arr) {
+      if (arr.length % 2 != 0) {
+        theMedian = arr[Math.floor(arr.length / 2)];
+      } else {
+        theMedian = [];
+        theMedian.push(arr[arr.length / 2], arr[arr.length / 2 - 1]);
+      }
+      return theMedian;
+    }
+
+    function calculateAverage(arr) {
+      sum = 0;
+      for (i = 0; i < arr.length; i++) {
+        sum += arr[i];
+      }
+      average = sum / arr.length;
+      return average;
+    }
+  </script>
+</html>
