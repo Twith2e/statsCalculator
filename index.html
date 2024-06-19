@@ -258,15 +258,17 @@
         .join(", ")}`;
       if (Array.isArray(calculateMedian(countries))) {
         thatMedian = calculateMedian(countries);
-        middleCountry.innerText = `The median is ${thatMedian[0]}, ${thatMedian[1]}`;
+        middleCountry.innerText = `The median country is ${thatMedian[0]}, ${thatMedian[1]}`;
       } else {
-        middleCountry.innerText = `The median is ${calculateMedian(countries)}`;
+        middleCountry.innerText = `The median country is ${calculateMedian(
+          countries
+        )}`;
       }
       if (countries.length % 2 != 0) {
         firstHalf = Math.ceil(countries.length / 2);
         firstHalfArray = countries.slice(0, firstHalf);
         secondHalfArray = countries.slice(firstHalf);
-        countrySlice.innerText = `After array slicing, the first and second parts of the array are : [${firstHalfArray}] and [${secondHalfArray}]`;
+        countrySlice.innerText = `After array slicing, the first and second parts of the array are : [${firstHalfArray}] AND [${secondHalfArray}]`;
       } else {
         firstHalf = countries.length / 2;
         console.log(
